@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Button } from "react-native";
 import { getAuth, updateProfile } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
-const Profile = () => {
+const EditProfile = () => {
   const [filiere, setFiliere] = useState("");
   const [gmail, setGmail] = useState("");
   const [nom, setNom] = useState("");
@@ -19,7 +19,7 @@ const Profile = () => {
   const fetchProfileData = async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(firestore, "profile", user.uid);
+      const docRef = doc(firestore, "profiles", user.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
@@ -41,7 +41,7 @@ const Profile = () => {
         telephone,
       };
 
-      const docRef = doc(firestore, "profile", user.uid);
+      const docRef = doc(firestore, "profiles", user.uid);
       await setDoc(docRef, profileData, { merge: true });
     }
   };
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default EditProfile;

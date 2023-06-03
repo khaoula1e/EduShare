@@ -24,9 +24,7 @@ const SlashScreen = () => {
       <View>
         <Text style={styles.text}>Apprenez à tout moment</Text>
         <Image
-          style={{
-            height: height / 2.5,
-          }}
+          style={styles.image}
           resizeMode="contain"
           source={require("../assets/images/home.png")}
         />
@@ -42,6 +40,13 @@ const SlashScreen = () => {
           <Text style={styles.registerButtonText}>Register</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.logo}>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require("../assets/images/EduShare.png")}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -52,6 +57,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+  width: 200, 
+    height: 100,
+  marginTop: 20,
+},
   text: {
     fontSize: FontSize.xxLarge,
     color: "#5981C6",
@@ -63,11 +73,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: Spacing * 3,
   },
+  image: {
+    height: height / 2.5,
+    alignSelf: "center",
+  },
   buttonsContainer: {
     paddingHorizontal: Spacing * 2,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
+    marginTop: Spacing * 2,
   },
   loginButton: {
     backgroundColor: Colors.primary,
@@ -95,11 +111,11 @@ const styles = StyleSheet.create({
     width: "48%",
     borderRadius: Spacing,
     borderWidth: 1,
-    borderColor: Colors.text,
+    borderColor: Colors.primary,
   },
   registerButtonText: {
     fontFamily: "Roboto",
-    color: Colors.text,
+    color: Colors.primary,
     fontSize: FontSize.large,
     textAlign: "center",
   },
