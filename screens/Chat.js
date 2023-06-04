@@ -1,76 +1,133 @@
-import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
-import WebSocketClient from '../config/WebSocketClient';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text } from 'react-native';
+import { userChats } from '../../services/chat-service';
+import AuthService from '../services/auth.service';
+import Conversation from '../../components/Conversations/Conversation';
+import Chatbox from '../../components/Chatbox/Chatbox';
+import { getNotifications } from '../../services/notification-service';
+import io from 'socket.io-client';
 
 const Chat = () => {
-  const [name, setName] = useState('');
-  const [isEnter, setIsEnter] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [chats, setChats] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [sendMessage, setSendMessage] = useState(null);
+  const [receivedMessage, setReceivedMessage] = useState(null);
+  const socket = useRef(null);
 
   useEffect(() => {
-    return () => WebSocketClient.close();
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+    }
   }, []);
 
   useEffect(() => {
-    WebSocketClient.onReceiveMessage = (newMessage) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, newMessage)
-      );
+    const getChats = async () => {
+      try {
+        const { data } = await userChats(currentUser?.id);
+        setChats(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
+    getChats();
+  }, [currentUser?.id]);
+
+  useEffect(() => {
+    socket.current = io('http://192.168.137.1:8800');
+
+    socket.current.emit('new-user-add', currentUser?.id);
+    socket.current.on('get-users', (users) => {
+      setOnlineUsers(users);
+    });
+  }, [currentUser?.id]);
+
+  useEffect(() => {
+    socket.current.on('recieve-message', (data) => {
+      setReceivedMessage(data);
+    });
   }, []);
 
-  const onSend = (newMessages) => {
-    WebSocketClient.send(newMessages[0]);
-  };
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await getNotifications(currentUser?.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  if (!isEnter)
-    return (
+    fetchNotifications();
+  }, [currentUser?.id]);
+
+  return (
+    <View>
       <View style={styles.container}>
-        <TextInput
-          style={styles.textInput}
-          textAlign="center"
-          value={name}
-          placeholder="Name"
-          onChangeText={(text) => setName(text)}
-        />
-        <Button title="Enter" onPress={() => setIsEnter(true)} />
+        {/* Left Side */}
+        <View style={styles.leftSideChat}>
+          <View style={styles.chatContainer}>
+            <Text style={styles.title}>Chats</Text>
+            <View style={styles.chatList}>
+              {chats?.map((chat) => (
+                <View
+                  key={chat.id}
+                  onTouchEnd={() => setCurrentChat(chat)}
+                >
+                  <Conversation
+                    data={chat}
+                    currentUserId={currentUser.id}
+                  />
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
+        {/* Right Side */}
+        <View style={styles.rightSideChat}>
+          <Chatbox
+            chat={currentChat}
+            currentUser={currentUser?.id}
+            setSendMessage={setSendMessage}
+            receivedMessage={receivedMessage}
+          />
+        </View>
       </View>
-    );
-  else {
-    const user = {
-      _id: name,
-      name,
-      avatar:
-        'https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png',
-    };
-
-    return (
-      <View style={{ flex: 1 }}>
-        <GiftedChat
-          messages={messages}
-          onSend={(newMessages) => onSend(newMessages)}
-          user={user}
-          renderUsernameOnMessage
-        />
-      </View>
-    );
-  }
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     flex: 1,
+    flexDirection: 'row',
+  },
+  leftSideChat: {
+    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
-  textInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: '50%',
+  chatContainer: {
+    flex: 1,
   },
-});
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  chatList: {
+    flex: 1,
+  },
+  rightSideChat: {
+    flex: 2,
+    backgroundColor: '#f9f9f9',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+};
+
 
 export default Chat;

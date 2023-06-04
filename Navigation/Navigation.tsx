@@ -7,9 +7,12 @@ import Register from "../screens/Register.js";
 import SlashScreen from "../screens/SlashScreen.js";
 import Profile from "../screens/Profile";
 import EditProfile from "../screens/EditProfile";
+import Chat from "../screens/Chat";
+// import Chatbox from "../components/Chatbox";
+// import Conversation from "../components/Conversation.js";
+
 
 import { RootStackParamList } from "../type";
-import Chat from "../screens/Chat";
 
 const theme = {
   ...DefaultTheme,
@@ -41,7 +44,25 @@ function RootNavigator() {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Chat" component={Chat} />
+      {/* <Stack.Screen name="Chat">
+        {({ navigation, route }) => (
+          <Chatbox
+            chat={route.params.chat}
+            currentUser={route.params.currentUser}
+            setSendMessage={route.params.setSendMessage}
+            receivedMessage={route.params.receivedMessage}
+          />
+        )}
+      </Stack.Screen> */}
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      {/* <Stack.Screen name="Conversation">
+        {({ navigation, route }) => (
+          <Conversation
+            data={route.params.data}
+            currentUserId={route.params.currentUserId}
+          />
+        )}
+      </Stack.Screen> */}
     </Stack.Navigator>
   );
 }
