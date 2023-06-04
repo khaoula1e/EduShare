@@ -9,7 +9,6 @@ import Profile from "../screens/Profile";
 import EditProfile from "../screens/EditProfile";
 
 import { RootStackParamList } from "../type";
-import Chat from "../screens/Chat";
 
 const theme = {
   ...DefaultTheme,
@@ -40,7 +39,6 @@ function RootNavigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );

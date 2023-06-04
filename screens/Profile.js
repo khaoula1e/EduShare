@@ -73,9 +73,9 @@ const Profile = ({ route, navigation }) => {
         <TouchableOpacity style={styles.editButton} onPress={() => handleEditProfile()}>
           <Text style={[styles.editButtonText]}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("Chat")}>
+        {/* <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("Chat")}>
         <Text style={[styles.editButtonText]}>Chat</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
         <Image style={styles.logoImage} source={require('../assets/images/EduShare.png')} />
       </View>
     </View>

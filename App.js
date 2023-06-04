@@ -2,8 +2,8 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import fonts from "./config/fonts";
-import Navigation from "./Navigation/Navigation.tsx";
 import { StyleSheet } from 'react-native';
+import Navigation from "./navigation/Navigation.tsx";
 
 
 export default function App() {
