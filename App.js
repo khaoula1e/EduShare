@@ -1,29 +1,27 @@
-import React,  { useEffect } from 'react'
-import {  Text, View } from 'react-native';
-import Home from './screens/home'
-import Sceen1 from './screens/sceen1';
-import Sceen2 from './screens/sceen2';
-import Sceen3 from './screens/sceen3';
-import Sceen4 from './screens/sceen4';
-import Sceen5 from './screens/sceen5';
-import Sceen6 from './screens/sceen6';
-import Sceen7 from './screens/sceen7';
-import Screen8 from './screens/screen8';
-import Screen9 from './screens/screen9';
-
-import { loadFonts } from './expo-font';
+import { useFonts } from "expo-font";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import fonts from "./config/fonts";
+import Navigation from "./Navigation/Navigation.tsx";
+import { StyleSheet } from 'react-native';
 
 
 export default function App() {
+  const [fontsLoaded] = useFonts(fonts);
 
-  //  useEffect(() => {
-  //   loadFonts();
-  // }, []);
-
-  return (
-    <View >
-      <Screen9 />
-    </View>
-    
+  return !fontsLoaded ? null : (
+    <SafeAreaProvider>
+      <Navigation />
+      <StatusBar />
+    </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
