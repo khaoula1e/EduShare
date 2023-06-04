@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React,  { useEffect } from 'react'
+import {  Text, View } from 'react-native';
+import Home from './screens/home'
+import Sceen1 from './screens/sceen1';
+import Sceen2 from './screens/sceen2';
+import Sceen3 from './screens/sceen3';
+import Sceen4 from './screens/sceen4';
+import Sceen5 from './screens/sceen5';
+import Sceen6 from './screens/sceen6';
+import Sceen7 from './screens/sceen7';
+import Screen8 from './screens/screen8';
+import { loadFonts } from './expo-font';
 
 export default function App() {
+
+  //  useEffect(() => {
+  //   loadFonts();
+  // }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Screen8/>
     </View>
+    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
