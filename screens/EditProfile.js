@@ -2,25 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const EditProfile = ({ route,navigation }) => {
-  const { userId } = route.params ; // Default to an empty object if route.params is undefined
+const EditProfile = ({ route, navigation }) => {
+  const { userId, setUpdatedUserInfo } = route.params;
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
-  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [filiere, setFiliere] = useState('');
 
   useEffect(() => {
     if (!userId) {
-      return; // Abort the effect if userId is not available
+      return;
     }
 
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(`http://192.168.137.1:8080/api/auth/user/${userId}`);
         setUserInfo(response.data);
-        setFullName(response.data.fullName);
+        setUsername(response.data.username);
         setEmail(response.data.email);
         setPhone(response.data.phone);
         setFiliere(response.data.filiere);
@@ -33,19 +33,25 @@ const EditProfile = ({ route,navigation }) => {
 
     fetchUserInfo();
   }, [userId]);
+
   const handleSaveProfile = async () => {
     try {
       setLoading(true);
       await axios.put(`http://192.168.137.1:8080/api/auth/user/${userId}`, {
-        username: fullName,
+        username: username,
         email: email,
         phone: phone,
         filiere: filiere,
       });
       setLoading(false);
-      // Navigate back to the profile screen or perform any other action
-      console.log('Profile updated successfully!!')
-      navigation.navigate("Profile", { userId });
+      setUpdatedUserInfo({
+        username: username,
+        email: email,
+        phone: phone,
+        filiere: filiere,
+      });
+      console.log('Profile updated successfully!!');
+      navigation.goBack();
     } catch (error) {
       console.log('Error:', error);
       setLoading(false);
@@ -71,12 +77,12 @@ const EditProfile = ({ route,navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Edit Profile</Text>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder="Full Name"
         value={fullName}
         onChangeText={setFullName}
-      />
+      /> */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -96,7 +102,7 @@ const EditProfile = ({ route,navigation }) => {
         onChangeText={setFiliere}
       />
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
-        <Text style={styles.saveButtonText}>Save</Text>
+        <Text style={styles.saveButtonText}>Save Profile</Text>
       </TouchableOpacity>
     </View>
   );
@@ -121,15 +127,13 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '80%',
-    height: 40,
-    borderColor: 'gray',
+    padding: 10,
+    marginBottom: 10,
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 10,
-    paddingHorizontal: 10,
   },
   saveButton: {
-    marginTop: 10,
+    marginTop: 20,
     paddingVertical: 8,
     paddingHorizontal: 16,
     backgroundColor: '#1c2c74',

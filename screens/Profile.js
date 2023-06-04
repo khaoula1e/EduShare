@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Profile = ({ route, navigation }) => {
   const { userId } = route.params;
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
+  const [updatedUserInfo, setUpdatedUserInfo] = useState(null);
+  const handleLogout = async () => {
+  try {
+    const response = await axios.post('http://192.168.137.1:8080/api/auth/signout');
+    console.log(response.data.message);
+    // Redirigez l'utilisateur vers la page de connexion
+    navigation.navigate("Login")
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
 
   const handleEditProfile = () => {
-    navigation.navigate('EditProfile',{ userId });
+    navigation.navigate('EditProfile', { userId, setUpdatedUserInfo });
   };
 
   useEffect(() => {
@@ -24,7 +36,7 @@ const Profile = ({ route, navigation }) => {
     };
 
     fetchUserInfo();
-  }, [userId]);
+  }, [userId, updatedUserInfo]);
 
   if (loading) {
     return (
@@ -45,9 +57,11 @@ const Profile = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.section1}>
-        {/* <Image style={styles.profileImage} source={userInfo.image} /> */}
         <Image style={styles.logoImage} source={require('../assets/images/profile.png')} />
         <Text style={styles.usernameText}>{userInfo.username}</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Icon name="logout" size={24} color="#1c2c74" />
+        </TouchableOpacity>
       </View>
       <View style={styles.section2}>
         <Text style={styles.infoText}>Full Name: {userInfo.username}</Text>
@@ -59,6 +73,9 @@ const Profile = ({ route, navigation }) => {
         <TouchableOpacity style={styles.editButton} onPress={() => handleEditProfile()}>
           <Text style={[styles.editButtonText]}>Edit Profile</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("Chat")}>
+        <Text style={[styles.editButtonText]}>Chat</Text>
+      </TouchableOpacity>
         <Image style={styles.logoImage} source={require('../assets/images/EduShare.png')} />
       </View>
     </View>
@@ -91,12 +108,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginBottom: 10,
-  },
   usernameText: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -119,6 +130,18 @@ const styles = StyleSheet.create({
     bottom: 30,
     alignItems: 'center',
   },
+  logoutButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    padding: 20,
+  },
+  section0: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    padding: 10,
+  },
   logoImage: {
     width: 200,
     height: 100,
@@ -136,15 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 14,
-    color: 'gray',
-  },
-  loginLink: {
-    fontSize: 14,
-    color: '#5981C6',
-    fontWeight: 'bold',
   },
 });
 
