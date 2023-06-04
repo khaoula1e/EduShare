@@ -9,7 +9,10 @@ import Sceen5 from './screens/sceen5';
 import Sceen6 from './screens/sceen6';
 import Sceen7 from './screens/sceen7';
 import Screen8 from './screens/screen8';
+import Screen9 from './screens/screen9';
+
 import { loadFonts } from './expo-font';
+
 
 export default function App() {
 
@@ -18,8 +21,8 @@ export default function App() {
   // }, []);
 
   return (
-    <View>
-      <Screen8/>
+    <View >
+      <Screen9 />
     </View>
     
   );
