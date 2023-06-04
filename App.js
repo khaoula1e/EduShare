@@ -2,8 +2,8 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import fonts from "./config/fonts";
-import Navigation from "./Navigation/Navigation.tsx";
 import { StyleSheet } from 'react-native';
+import Navigation from "./navigation/Navigation.tsx";
 
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#fff',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
