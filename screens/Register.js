@@ -6,22 +6,25 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [filiere, setFiliere] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleRegister = async () => {
-  try {
-    const response = await axios.post('http://192.168.137.1:8080/api/auth/signup', {
-      username: username,
-      email: email,
-      password: password
-    });
+    try {
+      const response = await axios.post('http://192.168.137.1:8080/api/auth/signup', {
+        username: username,
+        email: email,
+        password: password,
+        filiere: filiere,
+        phone: phone
+      });
 
-    console.log('Registration successful:', response.data);
-    navigation.navigate("Login");
-  } catch (error) {
-    console.log('Registration error:', error);
-  }
-};
-
+      console.log('Registration successful:', response.data);
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log('Registration error:', error);
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bienvenue à EduShare!</Text>
@@ -60,6 +63,21 @@ const Register = ({ navigation }) => {
           value={password}
           onChangeText={text => setPassword(text)}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Entrer votre filière"
+          autoCapitalize="none"
+          value={filiere}
+          onChangeText={text => setFiliere(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Entrer votre numéro de téléphone"
+          autoCapitalize="none"
+          keyboardType="phone-pad"
+          value={phone}
+          onChangeText={text => setPhone(text)}
+        />
         <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>S'inscrire</Text>
         </TouchableOpacity>
@@ -70,13 +88,13 @@ const Register = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.logo}>
+      {/* <View style={styles.logo}>
         <Image
           style={styles.logoImage}
           resizeMode="contain"
           source={require("../assets/images/EduShare.png")}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

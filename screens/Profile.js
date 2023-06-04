@@ -8,7 +8,7 @@ const Profile = ({ route, navigation }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const handleEditProfile = () => {
-    navigation.navigate('EditProfile');
+    navigation.navigate('EditProfile',{ userId });
   };
 
   useEffect(() => {
@@ -52,8 +52,8 @@ const Profile = ({ route, navigation }) => {
       <View style={styles.section2}>
         <Text style={styles.infoText}>Full Name: {userInfo.username}</Text>
         <Text style={styles.infoText}>Email: {userInfo.email}</Text>
-        <Text style={styles.infoText}>Phone: </Text>
-        <Text style={styles.infoText}>Filiere: </Text>
+        <Text style={styles.infoText}>Phone: {userInfo.phone}</Text>
+        <Text style={styles.infoText}>Filiere: {userInfo.filiere}</Text>
       </View>
       <View style={styles.section3}>
         <TouchableOpacity style={styles.editButton} onPress={() => handleEditProfile()}>

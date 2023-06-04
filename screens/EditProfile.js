@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const EditProfile = ({ route }) => {
-  const { userId } = route.params;
+const EditProfile = ({ route,navigation }) => {
+  const { userId } = route.params ; // Default to an empty object if route.params is undefined
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [fullName, setFullName] = useState('');
@@ -12,6 +12,10 @@ const EditProfile = ({ route }) => {
   const [filiere, setFiliere] = useState('');
 
   useEffect(() => {
+    if (!userId) {
+      return; // Abort the effect if userId is not available
+    }
+
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(`http://192.168.137.1:8080/api/auth/user/${userId}`);
@@ -29,18 +33,19 @@ const EditProfile = ({ route }) => {
 
     fetchUserInfo();
   }, [userId]);
-
   const handleSaveProfile = async () => {
     try {
       setLoading(true);
       await axios.put(`http://192.168.137.1:8080/api/auth/user/${userId}`, {
-        fullName,
-        email,
-        phone,
-        filiere,
+        username: fullName,
+        email: email,
+        phone: phone,
+        filiere: filiere,
       });
       setLoading(false);
       // Navigate back to the profile screen or perform any other action
+      console.log('Profile updated successfully!!')
+      navigation.navigate("Profile", { userId });
     } catch (error) {
       console.log('Error:', error);
       setLoading(false);
