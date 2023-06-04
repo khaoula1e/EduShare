@@ -6,6 +6,8 @@ import Login from "../screens/Login.js";
 import Register from "../screens/Register.js";
 import SlashScreen from "../screens/SlashScreen.js";
 import Profile from "../screens/Profile";
+import EditProfile from "../screens/EditProfile";
+
 import { RootStackParamList } from "../type";
 
 const theme = {
@@ -37,6 +39,7 @@ function RootNavigator() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 }

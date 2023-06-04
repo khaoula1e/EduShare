@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../config/firebase';
+import axios from 'axios';
 import Spacing from "../constants/Spacing";
 import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
 import Font from "../constants/Fonts";
+
 const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
-  const onHandleLogin = () => {
-  if (email !== "" && password !== "") {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("Login success");
-        navigation.navigate("Profile"); // Navigate to the Profile page
-      })
-      .catch((err) => Alert.alert("Login error", err.message));
-  }
-};
+  const onHandleLogin = async () => {
+    try {
+      const response = await axios.post('http://192.168.137.1:8080/api/auth/signin', {
+        username: username,
+        password: password
+      });
 
+      console.log('Login successful:', response.data);
+      const userId = response.data.id; // Assuming the response contains the user ID
+      navigation.navigate("Profile", { userId }); // Pass the user ID as a navigation parameter
+    } catch (error) {
+      console.log('Login error:', error);
+      setLoginError("Login failed. Please try again."); // Set an error message to display to the user
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -35,13 +40,11 @@ const Login = ({ navigation }) => {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Entrer votre email"
+          placeholder="Entrer votre nom"
           autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
           autoFocus={true}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          value={username}
+          onChangeText={text => setUsername(text)}
         />
         <TextInput
           style={styles.input}
@@ -53,6 +56,7 @@ const Login = ({ navigation }) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
+        {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
         <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
           <Text style={styles.buttonText}>Se connecter</Text>
         </TouchableOpacity>
@@ -81,10 +85,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-  width: 200, 
+    width: 200, 
     height: 100,
-  marginTop: 20,
-},
+    marginTop: 20,
+  },
   title: {
     fontSize: 24,
     marginBottom: 20,
@@ -130,6 +134,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#5981C6",
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: "center",
   },
 });
 

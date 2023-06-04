@@ -1,78 +1,98 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, TextInput, Button } from "react-native";
-import { getAuth, updateProfile } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 
-const EditProfile = () => {
-  const [filiere, setFiliere] = useState("");
-  const [gmail, setGmail] = useState("");
-  const [nom, setNom] = useState("");
-  const [telephone, setTelephone] = useState("");
-
-  const auth = getAuth();
-  const firestore = getFirestore();
+const EditProfile = ({ route }) => {
+  const { userId } = route.params;
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [filiere, setFiliere] = useState('');
 
   useEffect(() => {
-    fetchProfileData();
-  }, []);
-
-  const fetchProfileData = async () => {
-    const user = auth.currentUser;
-    if (user) {
-      const docRef = doc(firestore, "profiles", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setFiliere(data.filiere || "");
-        setGmail(data.gmail || "");
-        setNom(data.nom || "");
-        setTelephone(data.telephone || "");
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(`http://192.168.137.1:8080/api/auth/user/${userId}`);
+        setUserInfo(response.data);
+        setFullName(response.data.fullName);
+        setEmail(response.data.email);
+        setPhone(response.data.phone);
+        setFiliere(response.data.filiere);
+        setLoading(false);
+      } catch (error) {
+        console.log('Error:', error);
+        setLoading(false);
       }
-    }
-  };
+    };
 
-  const saveProfileData = async () => {
-    const user = auth.currentUser;
-    if (user) {
-      const profileData = {
+    fetchUserInfo();
+  }, [userId]);
+
+  const handleSaveProfile = async () => {
+    try {
+      setLoading(true);
+      await axios.put(`http://192.168.137.1:8080/api/auth/user/${userId}`, {
+        fullName,
+        email,
+        phone,
         filiere,
-        gmail,
-        nom,
-        telephone,
-      };
-
-      const docRef = doc(firestore, "profiles", user.uid);
-      await setDoc(docRef, profileData, { merge: true });
+      });
+      setLoading(false);
+      // Navigate back to the profile screen or perform any other action
+    } catch (error) {
+      console.log('Error:', error);
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (!userInfo) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>Error: User not found</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Edit Profile</Text>
       <TextInput
         style={styles.input}
-        placeholder="Filière"
+        placeholder="Full Name"
+        value={fullName}
+        onChangeText={setFullName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Phone"
+        value={phone}
+        onChangeText={setPhone}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Filiere"
         value={filiere}
-        onChangeText={(text) => setFiliere(text)}
+        onChangeText={setFiliere}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Gmail"
-        value={gmail}
-        onChangeText={(text) => setGmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Nom"
-        value={nom}
-        onChangeText={(text) => setNom(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Téléphone"
-        value={telephone}
-        onChangeText={(text) => setTelephone(text)}
-      />
-      <Button title="Enregistrer" onPress={saveProfileData} />
+      <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
+        <Text style={styles.saveButtonText}>Save</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -80,17 +100,41 @@ const EditProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccdbdc',
+  },
+  errorText: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   input: {
+    width: '80%',
     height: 40,
-    width: "100%",
-    borderColor: "gray",
+    borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
+  },
+  saveButton: {
+    marginTop: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: '#1c2c74',
+    borderRadius: 5,
+  },
+  saveButtonText: {
+    color: '#f9f9f9',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from "react-native";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebase';
-import {AuthContext} from '../Navigation/AuthProvider';
-import Spacing from "../constants/Spacing";
-import FontSize from "../constants/FontSize";
-import Colors from "../constants/Colors";
-import Font from "../constants/Fonts";
+import axios from 'axios';
+
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = () => {
-    if (email !== '' && password !== '') {
-  createUserWithEmailAndPassword(auth, email, password)
-        .then(() => console.log('Signup success'))
-        .catch((err) => Alert.alert("Login error", err.message));
-    }
-  };
+  const handleRegister = async () => {
+  try {
+    const response = await axios.post('http://192.168.137.1:8080/api/auth/signup', {
+      username: username,
+      email: email,
+      password: password
+    });
+
+    console.log('Registration successful:', response.data);
+    navigation.navigate("Login");
+  } catch (error) {
+    console.log('Registration error:', error);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -32,13 +35,20 @@ const Register = ({ navigation }) => {
       <View style={styles.form}>
         <TextInput
           style={styles.input}
+          placeholder="Entrer votre nom"
+          autoCapitalize="none"
+          autoFocus={true}
+          value={username}
+          onChangeText={text => setUsername(text)}
+        />
+        <TextInput
+          style={styles.input}
           placeholder="Entrer votre email"
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
-          autoFocus={true}
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={text => setEmail(text)}
         />
         <TextInput
           style={styles.input}
@@ -48,7 +58,7 @@ const Register = ({ navigation }) => {
           secureTextEntry={true}
           textContentType="password"
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={text => setPassword(text)}
         />
         <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>S'inscrire</Text>
@@ -62,7 +72,7 @@ const Register = ({ navigation }) => {
       </View>
       <View style={styles.logo}>
         <Image
-          style={styles.logo}
+          style={styles.logoImage}
           resizeMode="contain"
           source={require("../assets/images/EduShare.png")}
         />
@@ -78,14 +88,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-  width: 200, 
+    width: 200,
     height: 100,
-  marginTop: 20,
-},
+    marginTop: 20,
+  },
   title: {
     fontSize: 24,
     marginBottom: 20,
-    fontFamily: Font["InstrumentSerif-Italic"]
+    fontFamily: "InstrumentSerif-Italic",
   },
   imageContainer: {
     marginBottom: 20,
@@ -127,6 +137,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#5981C6",
     fontWeight: "bold",
+  },
+  logoImage: {
+    width: "100%",
+    height: "100%",
   },
 });
 
