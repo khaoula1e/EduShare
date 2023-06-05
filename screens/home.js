@@ -1,40 +1,65 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import HomeHeader  from '../components/homeHeader';
-import HomeSearch  from '../components/homeSearch';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import HomeHeader from '../components/homeHeader';
+import HomeSearch from '../components/homeSearch';
 import HomeRevision from '../components/homeRevision';
 import DernierAjouter from '../components/dernierAjouter';
 import CoursComponent from '../components/coursComponent';
+import Sidebar from '../components/Sidebar';
 
+export default function Home() {
+  const navigation = useNavigation();
 
-export default function Home () {
-  
- 
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
+
   return (
-    <View style = {styles.container}>
-       <HomeHeader/> 
-       <HomeSearch/>
-       <HomeRevision/>
-       <DernierAjouter/>
-       <View style = {{flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent:"space-between", 
-    padding:20}}>
-        <Text style = {{color:'#759BB0', fontSize: 20,}} >Mes Cours</Text>
-        <Text style = {{color:'#777777', fontSize: 15, }}>voir tout</Text>
+    <View style={styles.container}>
+      {/* <Sidebar navigateToScreen={navigateToScreen} /> */}
+      <ScrollView>
+      <View style={styles.content}>
+        <HomeHeader />
+        <HomeSearch />
+        <HomeRevision />
+        <DernierAjouter />
+        <View style={styles.coursContainer}>
+          <Text style={styles.coursTitle}>Mes Cours</Text>
+          <Text style={styles.seeAllText} onPress={() => navigation.navigate('AllCoursesScreen')}>voir tout</Text>
+        </View>
+          <CoursComponent />
+          <CoursComponent />
+          <CoursComponent/>
       </View>
-       <CoursComponent/>
+      </ScrollView>
     </View>
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
+    flexDirection: 'row',
+  },
+  content: {
+    flex: 1,
     backgroundColor: '#fff',
     paddingTop: 60,
     padding: 20,
-   
-  }
-})
+  },
+  coursContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  coursTitle: {
+    color: '#759BB0',
+    fontSize: 20,
+  },
+  seeAllText: {
+    color: '#777777',
+    fontSize: 15,
+  },
+});

@@ -20,7 +20,8 @@ const Login = ({ navigation }) => {
 
       console.log('Login successful:', response.data);
       const userId = response.data.id; // Assuming the response contains the user ID
-      navigation.navigate("Profile", { userId }); // Pass the user ID as a navigation parameter
+      {/*navigation.navigate("Profile", { userId }); */ }
+      navigation.navigate("Home");// Pass the user ID as a navigation parameter
     } catch (error) {
       console.log('Login error:', error);
       setLoginError("Login failed. Please try again."); // Set an error message to display to the user

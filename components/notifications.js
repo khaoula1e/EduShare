@@ -7,7 +7,12 @@ export default function Notification () {
     <View style = {styles.sectionContainer}>
     <NotificationItem/>
     <NotificationItem/>
-
+    <NotificationItem/>
+      <NotificationItem />
+      <NotificationItem/>
+      <NotificationItem />
+      <NotificationItem/>
+    <NotificationItem/>
     </View>
     
   );

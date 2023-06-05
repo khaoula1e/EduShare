@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet ,ScrollView} from 'react-native'
 import React from 'react'
 import SceenHeader from '../components/sceenHeader';
 import FilName from '../components/filName';
@@ -8,12 +8,13 @@ import Cours from '../components/cours'
 
 export default function Sceen4 () {
   return (
-    <View style = {styles.container}>
+    <View style={styles.container}>
+       <ScrollView>
        <SceenHeader/>
-       <FilName/>
+       <FilName name='Cours'/>
        
        <Cours/>
-       
+        </ScrollView>
        
     </View>
     

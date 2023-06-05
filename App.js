@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import fonts from "./config/fonts";
 import { StyleSheet } from 'react-native';
-import Navigation from "./navigation/Navigation.tsx";
+import Navigation from "./Navigation/Navigation.tsx";
 
 
 export default function App() {

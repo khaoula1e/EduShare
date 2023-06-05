@@ -12,6 +12,11 @@ export type RootStackParamList = {
   Register: undefined;
   Profile: undefined;
   EditProfile: undefined,
+  Home: undefined,
+  AllCoursesScreen: undefined,
+  CoursContent: undefined,
+  Notifications: undefined,
+  Experience: undefined,
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

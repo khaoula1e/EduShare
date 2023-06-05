@@ -1,26 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import DernierAjouterItem from './dernierAjouterItem';
 
 
+export default function DernierAjouter() {
+      const navigation = useNavigation();
 
-export default function DernierAjouter () {
   return (
-    <View style ={styles.dernier}>
+    <View >
           <Text style = {{color:'#759BB0', fontSize: 20,}} >dernier ajouté</Text>
-          <View style = {styles.dernierAjouter}>
-            <View style = {{backgroundColor: '#fff', marginBottom: 10, padding : 20, width: 342, borderRadius:20 }}>
-              <Text style = {{fontSize: 14}} >CONTENEURISATION DES APPLICATIONS</Text>
-              <Text style = {{fontSize: 14, color: "#777777", fontFamily: 'AbrilFatface-Regular'}} >9:00am</Text>
-              <View style={{width: '95%', borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10,marginBottom:5, opacity: 0.5 }} />
-              <View style = {{flexDirection: 'row', justifyContent: "space-between"}}>
-              <Text style ={{fontWeight: "auto", fontSize:14, color:'#777777', flexWrap: 'wrap',fontFamily: 'AbrilFatface-Regular'}}>  Introduction aux Conteneurs </Text>
-              <Text style ={{ fontSize:12, color:'#fff', backgroundColor:'#2778F0', borderRadius: 12, fontStyle: "bold"}}>  Cours </Text>
-            </View>
-            </View>
-
-            
-            
-          </View>
+      <DernierAjouterItem title="CONTENEURISATION DES APPLICATIONS" time="12:00 PM" desc="Introduction aux Conteneurs" type="Course" />
+      <DernierAjouterItem title="CONTENEURISATION DES APPLICATIONS" time="12:00 PM" desc="Introduction aux Conteneurs" type="Tp" />
+      <DernierAjouterItem title="CONTENEURISATION DES APPLICATIONS" time="12:00 PM" desc="Introduction aux Conteneurs" type="Course" />
+      
 
           
 

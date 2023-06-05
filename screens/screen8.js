@@ -3,7 +3,7 @@ import React from 'react'
 import SceenHeader from '../components/sceenHeader';
 import FilName from '../components/filName';
 import Notifications from '../components/notifications';
-import SideBar from '../components/sideBar';
+import SideBar from '../components/Sidebar';
 
 
 export default function Screen8 () {

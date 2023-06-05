@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet ,ScrollView} from 'react-native'
 import React from 'react'
 import SceenHeader from '../components/sceenHeader';
 import FilName from '../components/filName';
@@ -7,11 +7,12 @@ import Notifications from '../components/notifications';
 
 export default function Sceen1 () {
   return (
-    <View style = {styles.container}>
+    <View style={styles.container}>
+       <ScrollView>
        <SceenHeader/>
-       <FilName/>
+       <FilName name='Notifications'/>
       <Notifications/>
-       
+        </ScrollView>
     </View>
     
   );

@@ -1,11 +1,14 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 import { AntDesign } from '@expo/vector-icons';
 import { SearchBar,Icon  } from 'react-native-elements';
 
 
 export default function SceenHeader () {
+    const navigation = useNavigation();
 
     const [hoveredText, setHoveredText] = useState('');
 
@@ -48,8 +51,10 @@ export default function SceenHeader () {
         inputContainerStyle={styles.inputContainer}
         inputStyle={styles.input}
       />
-      <Ionicons name="notifications-circle" size={30} color="#A5A6F6" />
-            <Image style = {styles.profil}  source={require('../assets/images/img.webp')}></Image>
+      <Ionicons name="notifications-circle" size={30} color="#A5A6F6" onPress={() => navigation.navigate('Notifications')}/>
+            <TouchableOpacity onPress={() => navigation.navigate('Experience')}>
+      <Image style={styles.profil} source={require('../assets/images/img.webp')} />
+    </TouchableOpacity>
 
       </View>
     

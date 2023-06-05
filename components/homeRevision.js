@@ -1,17 +1,20 @@
 import { StyleSheet, Text, View, ProgressViewIOS,ProgressBarAndroid  , ScrollView} from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function HomeRevision () {
+export default function HomeRevision() {
+      const navigation = useNavigation();
+
     return (
         <View style = {styles.revision}>
         <Text style = {{color:'#759BB0', fontSize: 20,}} >Reprendre la révision</Text>
       <ScrollView horizontal >
       
         
-        <View style = {styles.revisionItem}>
-          <Text style = {{color:'#000', fontSize: 20,}} >Java   Development</Text>
+        <View style = {styles.revisionItem} >
+          <Text style = {{color:'#000', fontSize: 20,}} onPress={() => navigation.navigate('CoursContent')}>Java   Development</Text>
           <View style = {styles.progress}>
         {Platform.OS === 'ios' ? (
         <ProgressViewIOS

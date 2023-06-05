@@ -8,7 +8,10 @@ export default function Cours () {
   return (
     <View style = {styles.sectionContainer}>
     <CoursComponent/>
-    <CoursComponent/>
+      <CoursComponent />
+      <CoursComponent />
+      <CoursComponent />
+      <CoursComponent/>
         </View>
     
   );

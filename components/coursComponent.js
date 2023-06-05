@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, Image, ProgressViewIOS,ProgressBarAndroid  } from 'react-native'
-import  React from 'react'
+import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function CoursComponent () {
+export default function CoursComponent() {
+  const navigation = useNavigation();
   return (
 
     <View style = {{alignItems:'center',justifyContent:'space-between', marginBottom:50}}>
@@ -13,7 +15,7 @@ export default function CoursComponent () {
             <Image style={{width:85, height: 85 }} source={require('../assets/docker1.png')}/>
       </View>
       <View style= {{ padding:20,}}>
-      <Text style = {{color:'#4E84C1', fontSize: 15, fontWeight:900, letterSpacing:0.1, flexDirection: 'column', flexWrap: 'wrap',textAlign:'center' , marginBottom :20}}> CONTENEURISATION  DES APPLICATIONS</Text>
+      <Text style = {{color:'#4E84C1', fontSize: 15, fontWeight:900, letterSpacing:0.1, flexDirection: 'column', flexWrap: 'wrap',textAlign:'center' , marginBottom :20}} onPress={() => navigation.navigate('CoursContent')}> CONTENEURISATION  DES APPLICATIONS</Text>
       <View style = {{ alignItems:'center',}}>
             <Text style = {{fontSize: 10, color: "#4E84C1", fontFamily: 'AbrilFatface'}} >60% Completed</Text>
             {Platform.OS === 'ios' ? (

@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet ,ScrollView} from 'react-native'
+import { View, Text, StyleSheet,ScrollView } from 'react-native'
 import React from 'react'
 import SceenHeader from '../components/sceenHeader';
+import Screen9 from './screen9';
 import FilName from '../components/filName';
-import Filiere from '../components/filiere';
 
 
-export default function Sceen1 () {
+
+export default function ExperienceScreen () {
   return (
     <View style={styles.container}>
       <ScrollView>
        <SceenHeader/>
-       <FilName/>
-       <Filiere/>
+       <FilName name= 'Experiences'/>
+      <Screen9/>
        </ScrollView>
     </View>
     

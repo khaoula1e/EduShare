@@ -2,11 +2,13 @@ import { View, Text, StyleSheet, Image  } from 'react-native'
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 
-export default function HomeHeader  () {
+export default function HomeHeader() {
+  const navigation = useNavigation();
   return (
     <View>
       <View style = {styles.header}>
@@ -23,7 +25,7 @@ export default function HomeHeader  () {
       Que veux-tu apprendre aujourd'hui
     </Text>
   </View>
-  <Ionicons name="notifications-circle" size={30} color="#A5A6F6" />
+  <Ionicons name="notifications-circle" size={30} color="#A5A6F6" onPress={() => navigation.navigate('Notifications')}/>
     <Image style = {styles.profil}  source={require('../assets/images/img.webp')}></Image>
 </View>
     </View>
@@ -75,7 +77,8 @@ const styles = StyleSheet.create({
       profil: {
           width: 41,
           height: 40,
-          borderRadius: 4,
+        borderRadius: 4,
+         marginLeft:20
     
       },
 })
