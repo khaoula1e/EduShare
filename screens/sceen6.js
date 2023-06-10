@@ -5,11 +5,22 @@ import FilName from '../components/filName';
 import Ressource from '../components/ressource';
 import Progress from '../components/progress';
 
-export default function Sceen6 () {
+export default function Sceen6() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const navigateToScreen = (screenName) => {
+    setSidebarOpen(false);
+    navigation.navigate(screenName);
+  };
   return (
     <View style={styles.container}>
+       {sidebarOpen && <Sidebar navigateToScreen={navigateToScreen} />}
        <ScrollView>
-       <SceenHeader/>
+       <SceenHeader toggleSidebar={toggleSidebar}/>
        <FilName name='CONTENEURISATION DES APPLICATIONS'/>
        <Progress/>
        

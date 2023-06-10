@@ -17,6 +17,7 @@ export type RootStackParamList = {
   CoursContent: undefined,
   Notifications: undefined,
   Experience: undefined,
+  Filieres: undefined,
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

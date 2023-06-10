@@ -9,6 +9,30 @@ export default function Filiere () {
     <View style = {styles.filiere}>
       <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
       <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
+      </View>
+      <View style = {styles.filiere}>
+      <Image style = {styles.fil} source={require('../assets/icons/aseds.png')}></Image>
+      <Text style={{flexDirection: 'column', flexWrap: 'wrap',textAlign:'center', color: 'white', marginRight:10, width: '80%', fontSize:18}}>ingénieur Développement des Services Numériques</Text>
     </View>
         </View>
     

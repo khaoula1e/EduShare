@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import HomeHeader from '../components/homeHeader';
 import HomeSearch from '../components/homeSearch';
@@ -10,28 +10,34 @@ import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   const navigation = useNavigation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   const navigateToScreen = (screenName) => {
+    setSidebarOpen(false);
     navigation.navigate(screenName);
   };
 
   return (
     <View style={styles.container}>
-      {/* <Sidebar navigateToScreen={navigateToScreen} /> */}
+      {sidebarOpen && <Sidebar navigateToScreen={navigateToScreen} />}
       <ScrollView>
-      <View style={styles.content}>
-        <HomeHeader />
-        <HomeSearch />
-        <HomeRevision />
-        <DernierAjouter />
-        <View style={styles.coursContainer}>
-          <Text style={styles.coursTitle}>Mes Cours</Text>
-          <Text style={styles.seeAllText} onPress={() => navigation.navigate('AllCoursesScreen')}>voir tout</Text>
-        </View>
+        <View style={styles.content}>
+          <HomeHeader toggleSidebar={toggleSidebar} />
+          <HomeSearch />
+          <HomeRevision />
+          <DernierAjouter />
+          <View style={styles.coursContainer}>
+            <Text style={styles.coursTitle}>Mes Cours</Text>
+            <Text style={styles.seeAllText} onPress={() => navigation.navigate('AllCoursesScreen')}>voir tout</Text>
+          </View>
           <CoursComponent />
           <CoursComponent />
           <CoursComponent/>
-      </View>
+        </View>
       </ScrollView>
     </View>
   );

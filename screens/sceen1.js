@@ -10,7 +10,7 @@ export default function Sceen1 () {
     <View style={styles.container}>
       <ScrollView>
        <SceenHeader/>
-       <FilName/>
+       <FilName name='Filiere'/>
        <Filiere/>
        </ScrollView>
     </View>

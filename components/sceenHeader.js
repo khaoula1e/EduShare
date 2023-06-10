@@ -52,7 +52,7 @@ export default function SceenHeader () {
         inputStyle={styles.input}
       />
       <Ionicons name="notifications-circle" size={30} color="#A5A6F6" onPress={() => navigation.navigate('Notifications')}/>
-            <TouchableOpacity onPress={() => navigation.navigate('Experience')}>
+            <TouchableOpacity onPress={() => navigation.navigate('CoursContent')}>
       <Image style={styles.profil} source={require('../assets/images/img.webp')} />
     </TouchableOpacity>
 

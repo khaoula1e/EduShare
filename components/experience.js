@@ -3,7 +3,8 @@ import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function Experience ({ img }) {
+export default function Experience({ img }) {
+  
   return (
     <View style={{ alignItems: 'center', marginBottom: 20, borderRadius: 30 }}>
       <View

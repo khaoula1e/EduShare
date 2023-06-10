@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -7,77 +7,72 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function SideBar() {
+export default function SideBar({ navigateToScreen }) {
   return (
-    <View style={{ marginTop: 50 }}>
-      <View
-        style={{
-          backgroundColor: 'black',
-          width: 301,
-          height: 724,
-          borderRadius: 30,
-          padding: 20,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 50,
-          }}
-        >
-          <AntDesign name="leftcircleo" size={50} color="#759BB0" />
-          <Text style={{ color: '#ADD3E8', fontSize: 26 }}>
-            Khaoula Elfatimi
-          </Text>
+    <View style={styles.container}>
+      <View style={styles.sidebar}>
+        <View style={styles.sidebarHeader}>
+          <TouchableOpacity onPress={() => navigateToScreen('Home')}>
+            <AntDesign name="leftcircleo" size={50} color="#759BB0" />
+          </TouchableOpacity>
+          <Text style={styles.sidebarHeaderText}>Khaoula Elfatimi</Text>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <View style={{ alignItems: 'center', justifyContent: 'space-around' }}>
-            <Entypo name="home" size={35} color="#D6E7F7" />
-            <View style={{ marginBottom: 20 }} />
-            <AntDesign name="book" size={35} color="#D6E7F7" />
-            <View style={{ marginBottom: 20 }} />
-            <FontAwesome name="book" size={35} color="#D6E7F7" />
-            <View style={{ marginBottom: 20 }} />
-            <Ionicons name="ios-chatbubble-ellipses" size={35} color="#D6E7F7" />
-            <View style={{ marginBottom: 20 }} />
-            <Ionicons name="md-information-circle" size={35} color="#D6E7F7" />
+        <View style={styles.menuItemsContainer}>
+          <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => navigateToScreen('Home')}>
+              <Entypo name="home" size={35} color="#D6E7F7" />
+            </TouchableOpacity>
+            <Text style={styles.menuItemText}>Accueil</Text>
           </View>
 
-          <View style={{ marginLeft: 10 }}>
-            <Text style={{ color: '#D6E7F7', fontSize: 35, marginBottom: 20 }}>
-              Accueil
-            </Text>
-            <Text style={{ color: '#D6E7F7', fontSize: 35, marginBottom: 20 }}>
-              Mes cours
-            </Text>
-            <Text style={{ color: '#D6E7F7', fontSize: 35, marginBottom: 20 }}>
-              Cours
-            </Text>
-            <Text style={{ color: '#D6E7F7', fontSize: 35, marginBottom: 20 }}>
-              Chat
-            </Text>
-            <Text style={{ color: '#D6E7F7', fontSize: 35 }}>Experience</Text>
+          <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => navigateToScreen('AllCoursesScreen')}>
+              <AntDesign name="book" size={35} color="#D6E7F7" />
+            </TouchableOpacity>
+            <Text style={styles.menuItemText}>Mes cours</Text>
+          </View>
+
+          <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => navigateToScreen('Filieres')}>
+              <FontAwesome name="book" size={35} color="#D6E7F7" />
+            </TouchableOpacity>
+            <Text style={styles.menuItemText}>Cours</Text>
+          </View>
+
+          <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => navigateToScreen('Experience')}>
+              <Ionicons name="ios-chatbubble-ellipses" size={35} color="#D6E7F7" />
+            </TouchableOpacity>
+            <Text style={styles.menuItemText}>Chat</Text>
+          </View>
+
+          <View style={styles.menuItem}>
+            <TouchableOpacity onPress={() => navigateToScreen('Experience')}>
+              <Ionicons name="md-information-circle" size={35} color="#D6E7F7" />
+            </TouchableOpacity>
+            <Text style={styles.menuItemText}>Experience</Text>
           </View>
         </View>
-        <View style={{ padding: 20, margin: 20 }}>
+
+        <View style={styles.logoContainer}>
           <Image
-            style={{ width: 180, height: 100 }}
+            style={styles.logoImage}
             source={require('../assets/images/EduShare.png')}
           />
         </View>
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}
-        >
-          <MaterialCommunityIcons name="logout-variant" size={24} color="#D6E7F7" />
-          <Text style={{ color: '#D6E7F7', marginLeft: 20 }}>Logout</Text>
+
+        <View style={styles.logoutContainer}>
+          <TouchableOpacity onPress={() => navigateToScreen('Experience')}>
+            <MaterialCommunityIcons name="logout-variant" size={24} color="#D6E7F7" />
+          </TouchableOpacity>
+          <Text style={styles.logoutText}>Logout</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+        <View style={styles.lightModeContainer}>
+          <View style={styles.lightModeTextContainer}>
             <Entypo name="light-up" size={24} color="#D6E7F7" />
-            <Text style={{ color: '#D6E7F7', marginLeft: 20 }}>Light mode</Text>
+            <Text style={styles.lightModeText}>Light mode</Text>
           </View>
           <Entypo name="switch" size={30} color="#D6E7F7" />
         </View>
@@ -85,3 +80,73 @@ export default function SideBar() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+  sidebar: {
+    backgroundColor: 'black',
+    width: 301,
+    height: 724,
+    borderRadius: 30,
+    padding: 20,
+  },
+  sidebarHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 50,
+  },
+  sidebarHeaderText: {
+    color: '#ADD3E8',
+    fontSize: 26,
+  },
+  menuItemsContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+
+  },
+  menuItem: {
+    paddingLeft: 20,
+    paddingRight:20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection:'row'
+  },
+  menuItemText: {
+    color: '#D6E7F7',
+    fontSize: 35,
+    marginBottom: 20,
+    textAlign:'left'
+  },
+  logoContainer: {
+    padding: 20,
+    margin: 20,
+  },
+  logoImage: {
+    width: 180,
+    height: 100,
+  },
+  logoutContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logoutText: {
+    color: '#D6E7F7',
+    marginLeft: 20,
+  },
+  lightModeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  lightModeTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  lightModeText: {
+    color: '#D6E7F7',
+    marginLeft: 20,
+  },
+});

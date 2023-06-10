@@ -6,11 +6,12 @@ import FilName from '../components/filName';
 
 
 
-export default function ExperienceScreen () {
+export default function ExperienceScreen() {
+  {sidebarOpen && <Sidebar navigateToScreen={navigateToScreen} />}
   return (
     <View style={styles.container}>
       <ScrollView>
-       <SceenHeader/>
+       <SceenHeader toggleSidebar={toggleSidebar}/>
        <FilName name= 'Experiences'/>
       <Screen9/>
        </ScrollView>

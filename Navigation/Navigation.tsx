@@ -17,6 +17,7 @@ import Sceen4 from "../screens/sceen4";
 import sceen5 from "../screens/sceen5";
 import sceen7 from "../screens/sceen7";
 import ExperienceScreen from "../screens/experieceScreen";
+import Sceen1 from "../screens/sceen7";
 
 const theme = {
   ...DefaultTheme,
@@ -53,7 +54,7 @@ function RootNavigator() {
       <Stack.Screen name="CoursContent" component={sceen5} />
       <Stack.Screen name="Notifications" component={sceen7} />
       <Stack.Screen name="Experience" component={ExperienceScreen}/>
-
+      <Stack.Screen name="Filieres" component={Sceen1}/>
     </Stack.Navigator>
   );
 }

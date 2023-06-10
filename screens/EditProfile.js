@@ -37,7 +37,7 @@ const EditProfile = ({ route, navigation }) => {
   const handleSaveProfile = async () => {
     try {
       setLoading(true);
-      await axios.put(`http://192.168.137.1:8080/api/auth/user/${userId}`, {
+      await axios.put(`http://192.168.43.52:8080/api/auth/user/${userId}`, {
         username: username,
         email: email,
         phone: phone,

@@ -26,7 +26,7 @@ const Profile = ({ route, navigation }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://192.168.137.1:8080/api/auth/user/${userId}`);
+        const response = await axios.get(`http://192.168.43.52:8080/api/auth/user/${userId}`);
         setUserInfo(response.data);
         setLoading(false);
       } catch (error) {

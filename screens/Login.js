@@ -13,7 +13,7 @@ const Login = ({ navigation }) => {
 
   const onHandleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.137.1:8080/api/auth/signin', {
+      const response = await axios.post('http://192.168.43.52:8080/api/auth/signin', {
         username: username,
         password: password
       });
